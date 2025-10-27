@@ -18,9 +18,13 @@ export class Name {
     private delimiter: string = DEFAULT_DELIMITER;
     private components: string[] = [];
 
-    /** Expects that all Name components are properly masked */
+    /** 
+     * Expects that all Name components are properly masked 
+     * @methodtype initialization-method
+     */
     constructor(other: string[], delimiter?: string) {
-        this.components = other;
+        // copy the components
+        this.components = [...other];
         if (delimiter != undefined) {
             this.delimiter = delimiter;
         }
