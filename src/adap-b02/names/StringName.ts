@@ -70,7 +70,11 @@ export class StringName implements Name {
     }
 
     public append(c: string): void {
-        this.name = this.name + this.delimiter + c
+        if (this.isEmpty()) {
+            this.name = c
+        } else {
+            this.name = this.name + this.delimiter + c
+        }
         this.noComponents += 1
     }
 

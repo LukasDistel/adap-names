@@ -15,6 +15,28 @@ describe("Basic StringName function tests", () => {
     expect(n.asDataString()).toBe("");
     expect(n.getNoComponents()).toBe(1);
   });
+  it("Remove empty component", () => {
+    let n: Name = new StringName("");
+    expect(n.asDataString()).toBe("");
+    expect(n.getNoComponents()).toBe(1);
+    n.remove(0)
+    expect(n.getNoComponents()).toBe(0);
+    expect(n.isEmpty()).toBe(true);
+    expect(n.asDataString()).toBe("");
+  });
+  it("Add to empty name vs add to empty string", () => {
+    let n: Name = new StringName("");
+    n.append("oss")
+    expect(n.asDataString()).toBe(".oss");
+    expect(n.getNoComponents()).toBe(2);
+    n.remove(1)
+    expect(n.asDataString()).toBe("");
+    n.remove(0)
+    expect(n.isEmpty()).toBe(true);
+    n.append("oss")
+    expect(n.getNoComponents()).toBe(1);
+    expect(n.asDataString()).toBe("oss");
+  });
   it("single delimiter initialization", () => {
     let n: Name = new StringName("#", '#');
     expect(n.asDataString()).toBe("#");
@@ -93,6 +115,33 @@ describe("Basic StringArrayName function tests", () => {
     n.remove(0);
     expect(n.asString()).toBe("cs.fau.de");
     expect(n.getNoComponents()).toBe(3)
+  });
+  it("test empty", () => {
+    let n: Name = new StringArrayName(["oss"]);
+    n.remove(0);
+    expect(n.isEmpty()).toBe(true);
+    expect(n.getNoComponents()).toBe(0)
+  });
+  it("Remove empty component", () => {
+    let n: Name = new StringArrayName([""]);
+    expect(n.asDataString()).toBe("");
+    expect(n.getNoComponents()).toBe(1);
+    n.remove(0)
+    expect(n.getNoComponents()).toBe(0);
+    expect(n.isEmpty()).toBe(true);
+    expect(n.asDataString()).toBe("");
+  });
+  it("Add to empty name vs add to empty string", () => {
+    let n: Name = new StringArrayName([""]);
+    n.append("oss")
+    expect(n.asDataString()).toBe(".oss");
+    expect(n.getNoComponents()).toBe(2);
+    n.remove(0)
+    n.remove(0)
+    expect(n.isEmpty()).toBe(true);
+    n.append("oss")
+    expect(n.getNoComponents()).toBe(1);
+    expect(n.asDataString()).toBe("oss");
   });
   it("test insert start", () => {
     let n: Name = new StringArrayName(["cs", "fau", "de"]);
